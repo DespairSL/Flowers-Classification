@@ -20,7 +20,6 @@
 * `RandomResizedCrop`, `ColorJitter`, `GaussianBlur`, `RandomHorizontalFlip` для увеличения разнообразия обучающих примеров
 * Изображения нормализованы под стандарты ViT (`mean`, `std`)
 
-* 
 Разбиение:
 
 * Датасет заранее разбит на Train | Validation | Test = % | % | %
