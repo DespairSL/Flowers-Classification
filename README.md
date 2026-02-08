@@ -1,7 +1,7 @@
 # Flowers-Classification
 
 ---
-**Vision Transformer (ViT)** модель
+Модель **Vision Transformer (ViT)**
 
 Использовалось в проекте:
 
@@ -9,3 +9,4 @@
 * Размер входа: 224x224
 * Преобучена на ImageNet-21k
 ---
+Данные
