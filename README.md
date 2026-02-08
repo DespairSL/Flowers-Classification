@@ -10,9 +10,9 @@
 * Преобучена на ImageNet-21k
 ---
 ### Данные
-* **Датасет на Kaggle: [OxFord 102 Flower Dataset](https://www.kaggle.com/datasets/yousefmohamed20/oxford-102-flower-dataset)
-* **Около 8200 изображений различных цветков
-* **Все изображения цветков распределены по папкам, которые по сути являются их классами.
+* **Датасет на Kaggle**: [OxFord 102 Flower Dataset](https://www.kaggle.com/datasets/yousefmohamed20/oxford-102-flower-dataset)
+* **Около 8200 изображений различных цветков**
+* **Все изображения цветков распределены по папкам, которые по сути являются их классами.**
 Датасет был загружен и преобразован в формат HuggingFace Datasets
 
 Примененные Аугментации:
@@ -23,7 +23,7 @@
 * 
 Разбиение:
 
-* **Датасет заранее разбит на Train | Validation | Test = % | % | %
+* **Датасет заранее разбит на Train | Validation | Test = % | % | %**
 * Для борьбы с дисбалансом классов использован `WeightedRandomSampler`
 
 ---
