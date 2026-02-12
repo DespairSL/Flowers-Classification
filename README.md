@@ -1,13 +1,13 @@
 # Flowers-Classification
 
 ---
-### Модель **Vision Transformer (ViT)**
+### Модель **-**
 
 Использовалось в проекте:
 
-* `google/vit-base-patch16-224-in21k`
-* Размер входа: 224x224
-* Преобучена на ImageNet-21k
+* `"microsoft/resnet-50"`
+* Размер входа: -
+* Преобучена на -
 ---
 ### Данные
 * **Датасет на Kaggle**: [OxFord 102 Flower Dataset](https://www.kaggle.com/datasets/yousefmohamed20/oxford-102-flower-dataset)
