@@ -219,6 +219,8 @@ class TelegramBot:
         matches = self._find_similar_flowers(query, limit=10)
         results = []
 
+        self.logger.debug(f"Обрабатываем inline запрос с текстом: '{query}'")
+
         # Формируем результаты для инлайн-запроса
         for idx, name in enumerate(matches):
             results.append(
@@ -226,12 +228,14 @@ class TelegramBot:
                     id=str(idx),
                     title=name.capitalize(),
                     input_message_content=InputTextMessageContent(
-                        message_text=f"🌹 {name.capitalize()}",
+                        message_text=f"{name.capitalize()}",
                         parse_mode=ParseMode.HTML
                     ),
                     description=f"Нажмите, чтобы узнать больше о {name}"
                 )
             )
+
+        self.logger.debug(f"Найдено {len(results)} результатов по запросу '{query}'")
 
         try:
             # Отправляем результаты инлайн-запроса
@@ -546,7 +550,11 @@ class TelegramBot:
 
             await query.edit_message_text(
                 f"🔎 <b>Поиск цветка по названию</b>\n\n"
-                f"Можете написать названия цветка обычным сообщением, а я попробую предложить вам возможные варианты!\n\n",
+                f"Нажмите кнопку <b>'Начать поиск'</b> ниже, и поле ввода сообщения автоматически подготовится к поиску. Либо же можете написать название цветка обычным сообщением, а я попробую предложить вам возможные варианты!\n\n"
+                f"Или введите вручную:\n"
+                f"<code>@{bot_username} название_цветка</code>\n\n"
+                f"Например: <code>@{bot_username} одув</code>\n\n"
+                f"Я буду показывать подсказки по мере ввода!",
                 reply_markup=reply_markup,
                 parse_mode=ParseMode.HTML
             )
