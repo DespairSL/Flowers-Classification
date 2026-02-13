@@ -1,0 +1,78 @@
+services:
+  redis:
+    image: redis:7-alpine
+    container_name: flowers-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+    networks:
+      - flowers-network
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: flowers-app
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    depends_on:
+      redis:
+        condition: service_healthy
+    volumes:
+      - ./database:/app/database
+      - ./model:/app/model:ro
+      - ./photos:/app/photos
+    networks:
+      - flowers-network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --log-level info
+
+  celery_worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: flowers-celery
+    restart: unless-stopped
+    env_file:
+      - .env
+    depends_on:
+      redis:
+        condition: service_healthy
+      app:
+        condition: service_started
+    command: celery -A app.celery:celery_app worker --loglevel=info --concurrency=2
+    volumes:
+      - ./database:/app/database
+      - ./model:/app/model:ro
+      - ./photos:/app/photos
+    networks:
+      - flowers-network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  redis_data:
+    driver: local
+
+networks:
+  flowers-network:
+    driver: bridge
+
