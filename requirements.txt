@@ -1,0 +1,15 @@
+fastapi
+uvicorn
+transformers
+Pillow
+python-multipart
+pydantic
+pydantic-settings
+numpy
+torch
+gdown
+python-telegram-bot
+python-dotenv
+celery
+redis
+psycopg2-binary
